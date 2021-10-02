@@ -13,7 +13,7 @@ arch=('i686' 'x86_64')
 url="http://irssi.org/"
 license=('GPL')
 depends=('glib2' 'openssl')
-makedepends=('git' 'elinks')
+makedepends=('git' 'elinks' 'meson' 'ninja')
 optdepends=('perl-libwww: For the scriptassist script')
 conflicts=('irssi')
 provides=('irssi')
@@ -29,18 +29,18 @@ pkgver() {
 build() {
   cd "${pkgname}"
 
-  ./autogen.sh \
-        --prefix=/usr \
-        --with-proxy \
-        --sysconfdir=/etc \
-        --with-perl-lib=vendor \
-        --enable-true-color \
-        --with-socks
-  make -j
+  meson Build \
+    -Dprefix=/usr \
+    -Dsysconfdir=/etc \
+    -Dwith-proxy=yes \
+    -Dwith-per-lib=vendor \
+    -Dwith-otr=yes \
+    -Denable-true-color=yes
+  ninja -C Build
 }
 
 package() {
   cd "${pkgname}"
 
-  make DESTDIR="${pkgdir}" install
+  DESTDIR="${pkgdir}" ninja -C Build install
 }
