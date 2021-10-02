@@ -9,11 +9,11 @@ pkgname=irssi-git
 pkgver=1.3.dev.r9.g26d96a7b
 pkgrel=1
 pkgdesc="Modular text mode IRC client with Perl scripting"
-arch=('i686' 'x86_64')
-url="http://irssi.org/"
+arch=('x86_64')
+url="https://irssi.org/"
 license=('GPL')
-depends=('glib2' 'openssl')
-makedepends=('git' 'elinks' 'meson' 'ninja')
+depends=('glibc' 'glib2' 'openssl' 'libotr' 'perl' 'ncurses' 'libncursesw.so')
+makedepends=('git' 'meson' 'ninja')
 optdepends=('perl-libwww: For the scriptassist script')
 conflicts=('irssi')
 provides=('irssi')
@@ -28,7 +28,6 @@ pkgver() {
 
 build() {
   cd "${pkgname}"
-
   meson Build \
     -Dprefix=/usr \
     -Dsysconfdir=/etc \
@@ -41,6 +40,7 @@ build() {
 
 package() {
   cd "${pkgname}"
-
   DESTDIR="${pkgdir}" ninja -C Build install
 }
+
+# vim: ts=2 sw=2 et:
