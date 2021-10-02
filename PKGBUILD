@@ -6,7 +6,7 @@
 # Contributor: Zariel <c.bannister@gmail.com>
 
 pkgname=irssi-git
-pkgver=1.3.dev.r9.g26d96a7b
+pkgver=1.3.dev.r495.ge31d42b3
 pkgrel=1
 pkgdesc="Modular text mode IRC client with Perl scripting"
 arch=('x86_64')
